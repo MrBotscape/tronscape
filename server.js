@@ -8,7 +8,7 @@ const TRONGRID_API_ENDPOINT = 'https://api.trongrid.io';
 
 app.use(bodyParser.json());
 
-app.get('/', async (req, res) => {
+app.get('/generateaddress', async (req, res) => {
   try {
     const tronWeb = new TronWeb({
       fullHost: TRONGRID_API_ENDPOINT,
