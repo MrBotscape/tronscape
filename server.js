@@ -8,7 +8,7 @@ const TRONGRID_API_ENDPOINT = 'https://api.trongrid.io';
 
 app.use(bodyParser.json());
 
-app.get('/', async (req, res) => {
+app.get('/', async (res) => {
   try {
     res.status(200).json({ "Welcome to Tronscape API","Developer - MrBotscape","Owning Company -- Botscape" });
    } catch (error) {
