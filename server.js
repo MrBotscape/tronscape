@@ -16,10 +16,10 @@ app.get('/generateaddress', async (req, res) => {
 
     const { privateKey, address } = await tronWeb.createAccount();
 
-    res.status(200).json({ privateKey, address });
+    res.status(200).json({ success: true, data: { privateKey, address } });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'error' });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
@@ -33,10 +33,10 @@ app.get('/balance/:address', async (req, res) => {
     const balanceInSun = await tronWeb.trx.getBalance(address);
     const balanceInTRX = balanceInSun / 1_000_000;
 
-    res.status(200).json({ address, balance: balanceInTRX });
+    res.status(200).json({ success: true, data: { address, balance: balanceInTRX } });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'error' });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
@@ -59,10 +59,10 @@ app.get('/send/:privateKey/:fromAddress/:toAddress/:amount', async (req, res) =>
 
     const result = await tronWeb.trx.sendRawTraAAnsaction(signedTransaction);
 
-    res.status(200).json({ result });
+    res.status(200).json({ success: true, data: { result } });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error:'error'});
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
@@ -74,10 +74,10 @@ app.get('/transactions/:address', async (req, res) => {
     const sortedTransactions = data.sort((a, b) => b.block_timestamp - a.block_timestamp);
     const transactionIds = sortedTransactions.slice(0, 10).map(transaction => transaction.txID);
 
-    res.status(200).json({ total: data.length, transactionIds });
+    res.status(200).json({ success: true, data: { total: data.length, transactionIds } });
   } catch (error) {
     console.error(error);
-    res.status(500).send('An error occurred');
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
