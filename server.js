@@ -66,4 +66,19 @@ app.get('/send/:privateKey/:fromAddress/:toAddress/:amount', async (req, res) =>
   }
 });
 
+app.get('/transactions/:address', async (req, res) => {
+  try {
+    const { address } = req.params;
+    const { data: { data } } = await axios.get(`${TRONGRID_API_ENDPOINT}/v1/accounts/${address}/transactions?only_to=false&only_confirmed=true`);
+
+    const sortedTransactions = data.sort((a, b) => b.block_timestamp - a.block_timestamp);
+    const transactionIds = sortedTransactions.slice(0, 10).map(transaction => transaction.txID);
+
+    res.status(200).json({ total: data.length, transactionIds });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred');
+  }
+});
+
 app.listen(process.env.PORT || 3000)
