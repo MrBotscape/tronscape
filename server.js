@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 
 app.get('/', async (res) => {
   try {
-    res.status(200).json({ "Welcome to Tronscape API","Developer - MrBotscape","Owning Company -- Botscape" });
+    res.status(200).json({ Welcome to Tronscape API,Developer - MrBotscape,Owning Company -- Botscape });
    } catch (error) {
     console.error(error);
-    res.status(500).json({ "Welcome to Tronscape API","Developer - MrBotscape","Owning Company -- Botscape" });
+    res.status(500).json({ Welcome to Tronscape API,Developer - MrBotscape,Owning Company -- Botscape });
   }
 });
 
