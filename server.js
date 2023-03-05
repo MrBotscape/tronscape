@@ -57,7 +57,7 @@ app.get('/send/:privateKey/:fromAddress/:toAddress/:amount', async (req, res) =>
 
     const signedTransaction = await tronWeb.trx.sign(transaction);
 
-    const result = await tronWeb.trx.sendRawTraAAnsaction(signedTransaction);
+    const result = await tronWeb.trx.sendRawTransaction(signedTransaction);
 
     res.status(200).json({ success: "true", data: { result } });
   } catch (error) {
